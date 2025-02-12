@@ -1,0 +1,11 @@
+"echo" betyder output fra
+"1>" put output fra før ind i den bagefter (Overrider hvad der allered står i filen bagefter)
+"1>>" append outputtet fra før til den bagefter 
+
+fx. 
+echo "Hello" 1> tekstfil
+Nu står der "Hello" i textfil
+
+
+echo (input) | sed --expression "s/,/\./g"> $@
+Den her linje ændre alle "," til "."

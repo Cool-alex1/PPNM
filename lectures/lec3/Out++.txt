@@ -1,0 +1,2 @@
+hello again from c++
+x=0.841471, y=0.540302, z=1
