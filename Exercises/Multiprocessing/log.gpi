@@ -1,0 +1,10 @@
+\
+	set term png ;\
+	set out "Times.png" ;\
+	set title "program running time as function of number of threads" ;\
+	set xlabel "number of threads" ;\
+	set ylabel "running time [sec]" ;\
+	plot \
+		"out.times.txt" index 0 with linespoints title "C++" \
+		,"out.times.txt" index 1 with linespoints title "C#" \
+
