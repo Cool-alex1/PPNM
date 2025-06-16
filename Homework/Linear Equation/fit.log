@@ -1,0 +1,180 @@
+
+
+*******************************************************************************
+Thu May  8 22:30:37 2025
+
+
+FIT:    data read from "out.times.txt"
+        format = z
+        #datapoints = 20
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x*x*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 2.1645581000e+16   0.00e+00  3.29e+07    1.000000e-02
+3004 7.1392485824e-321 -nan       3.29e-21   5.738318e-171
+
+After 300419 iterations the fit converged.
+final sum of squares of residuals : 7.13925e-321
+abs. change during last iteration : 0
+
+
+Hmmmm.... Sum of squared residuals is zero. Can't compute errors.
+
+Final set of parameters 
+======================= 
+
+a               = 5.73832e-171   
+
+
+*******************************************************************************
+Thu May  8 22:32:39 2025
+
+
+FIT:    data read from "out.times.txt"
+        format = z
+        #datapoints = 20
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x*x*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 8.6582324000e+16   0.00e+00  6.58e+07    2.000000e-02
+3011 6.5661324332e-321 -nan       6.58e-21   5.505131e-171
+
+After 301154 iterations the fit converged.
+final sum of squares of residuals : 6.56613e-321
+abs. change during last iteration : 0
+
+
+Hmmmm.... Sum of squared residuals is zero. Can't compute errors.
+
+Final set of parameters 
+======================= 
+
+a               = 5.50513e-171   
+
+
+*******************************************************************************
+Thu May  8 22:34:23 2025
+
+
+FIT:    data read from "out.times.txt"
+        format = z
+        #datapoints = 20
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x*x*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 8.6582324000e+16   0.00e+00  6.58e+07    2.000000e-02
+3011 6.5661324332e-321 -nan       6.58e-21   5.505131e-171
+
+After 301154 iterations the fit converged.
+final sum of squares of residuals : 6.56613e-321
+abs. change during last iteration : 0
+
+
+Hmmmm.... Sum of squared residuals is zero. Can't compute errors.
+
+Final set of parameters 
+======================= 
+
+a               = 5.50513e-171   
+
+
+*******************************************************************************
+Thu May  8 22:35:30 2025
+
+
+FIT:    data read from "out.times.txt"
+        format = z
+        #datapoints = 20
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x*x*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 8.6582324000e+28   0.00e+00  6.58e+13    2.000000e-02
+3149 7.1392485824e-321 -nan       6.58e-21   5.738830e-177
+
+After 314953 iterations the fit converged.
+final sum of squares of residuals : 7.13925e-321
+abs. change during last iteration : 0
+
+
+Hmmmm.... Sum of squared residuals is zero. Can't compute errors.
+
+Final set of parameters 
+======================= 
+
+a               = 5.73883e-177   
+
+
+*******************************************************************************
+Thu May  8 22:41:27 2025
+
+
+FIT:    data read from "out.times.txt"
+        format = z
+        #datapoints = 2
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x*x*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 2.5999984000e+10   0.00e+00  1.14e+05    2.000000e-02
+   5 3.8461538462e-05  -1.16e-07  1.14e+00    6.153846e-09
+
+After 5 iterations the fit converged.
+final sum of squares of residuals : 3.84615e-05
+rel. change during last iteration : -1.16175e-12
+
+degrees of freedom    (FIT_NDF)                        : 1
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.00620174
+variance of residuals (reduced chisquare) = WSSR/ndf   : 3.84615e-05
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 6.15385e-09      +/- 7.692e-10    (12.5%)
+
+
+*******************************************************************************
+Thu May  8 22:42:50 2025
+
+
+FIT:    data read from "out.times.txt"
+        format = z
+        #datapoints = 10
+        residuals are weighted equally (unit weight)
+
+function used for fitting: f(x)
+	f(x) = a*x*x*x
+fitted parameters initialized with current variable values
+
+iter      chisq       delta/lim  lambda   a            
+   0 7.9136150518e+14   0.00e+00  8.90e+06    2.000000e-02
+   5 5.4280851797e-02  -2.56e-10  8.90e+03    6.252704e-09
+
+After 5 iterations the fit converged.
+final sum of squares of residuals : 0.0542809
+rel. change during last iteration : -2.55666e-15
+
+degrees of freedom    (FIT_NDF)                        : 9
+rms of residuals      (FIT_STDFIT) = sqrt(WSSR/ndf)    : 0.0776608
+variance of residuals (reduced chisquare) = WSSR/ndf   : 0.00603121
+
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 6.2527e-09       +/- 5.521e-11    (0.883%)
