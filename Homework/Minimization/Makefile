@@ -4,15 +4,15 @@ TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
 
-# Out.txt: main
-# 	./main > $@
+Out.txt: main
+	./main > $@
 
 
-# main.o matrix.o vector.o QR.o mini.o: matrix.h vector.h
-# vector.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
-matrix.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
-main.o QR.o mini.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
 main : main.o matrix.o QR.o vector.o mini.o
+main.o matrix.o vector.o QR.o mini.o: matrix.h vector.h mini.h
+# vector.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
+# matrix.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
+# main.o QR.o mini.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
 
 
 

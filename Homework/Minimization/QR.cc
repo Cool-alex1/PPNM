@@ -24,7 +24,7 @@ matrix QR::solve(const matrix& b) const {return invers(R)*Q.T()*b;}
 matrix QR::solve(const vector& b) const {
     matrix b2(len(b), 1);
     for (int i=0; i<len(b); i++) b2(i,0) = b[i];
-    return invers(R)*Q.T()*b;}
+    return invers(R)*Q.T()*b2;}
 
 void QR::inversQR(){
     B = invers(R)*Q.T();

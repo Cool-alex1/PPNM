@@ -222,12 +222,14 @@ matrix proj(const matrix& u, const matrix& a){
 vector toVector(const matrix& a){
 	if(a.nRow == 1){
 		vector v(a.nCol);
-		for(int i=0; i<a.nCol; i++){v(i) = a(0,i);}
+		for(int i=0; i<a.nCol; i++){v[i] = a(0,i);}
+		return v;
 	} else {
 		vector v(a.nRow);
-		for(int i=0; i<a.nRow; i++){v(i) = a(i,0);}
+		for(int i=0; i<a.nRow; i++){v[i] = a(i,0);}
+		return v;
 	}
-	return vector;
+	throw std::invalid_argument("Couldn't convert matrix to vector");
 }
 
 

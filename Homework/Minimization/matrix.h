@@ -1,5 +1,5 @@
-#ifndef HAVE_VEC_H
-#define HAVE_VEC_H
+#ifndef HAVE_MATRIX_H
+#define HAVE_MATRIX_H
 #include"vector.h"
 #include<iostream>
 #include<string>
