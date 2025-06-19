@@ -13,7 +13,7 @@ vector gradient(const std::function<double(vector)>& f, vector x){
     vector gf = vector(len(x));
     double dxi;
     for (int i=0; i<len(x); i++){
-        dxi = (1+abs(x[i]))*std::pow(2, -26);
+        dxi = (1+std::abs(x[i]))*std::pow(2, -26);
         x[i] += dxi;
         gf[i] = (f(x)-fx)/dxi;
         x[i] -= dxi;
@@ -28,7 +28,7 @@ matrix hessian(const std::function<double(vector)>& f, vector x){
     double dxj;
     vector dgf;
     for (int j=0; j<len(x); j++){
-        dxj = (1+abs(x[j]))*std::pow(2, -13);
+        dxj = (1+std::abs(x[j]))*std::pow(2, -13);
         x[j] += dxj;
         dgf = gradient(f,x)-gfx;
         for (int i=0; i<len(x); i++) H(i,j) = dgf[i]/dxj;
@@ -38,20 +38,25 @@ matrix hessian(const std::function<double(vector)>& f, vector x){
 }
 
 
-vector newton(const std::function<double(vector)>& f, vector x, double acc=1e-3){
+std::tuple<vector, int> newton(const std::function<double(vector)>& f, vector x, double acc=1e-1){
+    int n = 0;
     while (1) {
         vector g = gradient(f, x);
+        // g.print("");
         if (g.norm() < acc) break;
         matrix H = hessian(f, x);
         QR fac(H);
         fac.decomp();
         vector dx = toVector(fac.solve(-g));
+        // std::cout << x[0] << ", " << x[1] << std::endl;
+        // dx.print("");
         double λ = 1 ;
-        while (λ >= 1/1024){
+        while (λ >= 1.0/1024){
             if (f(x + λ*dx) < f(x)) break;
             λ /= 2;
         }
-        x = x + λ*dx;
+        x += λ*dx;
+        n += 1;
     }
-    return x;
+    return std::make_tuple(x, n);
 }

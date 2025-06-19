@@ -5,7 +5,7 @@ TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
 Out.txt: main
-	./main > $@
+	./main --input higgs.data.txt > $@
 
 
 main : main.o matrix.o QR.o vector.o mini.o
@@ -24,17 +24,35 @@ main.o matrix.o vector.o QR.o mini.o: matrix.h vector.h mini.h
 
 out.lin.txt: main
 	./main -mode "lin" > $@; 
-plot.lin.svg : out.lin.txt Makefile
+plot.Rosen.svg : Out.txt Makefile
 	echo 'set terminal svg background "white";\
 		  set output "$@"; \
 		  set xlabel "x"; \
-		  set ylabel "f(x)"; \
+		  set ylabel "y"; \
 		  set title "blabla"; \
 		  set datafile separator comma; \
 		  plot \
-		  	"$<" index 1 using 1:2 with lines title "Target func: cos(x)", \
-		  	"$<" index 2 using 1:2 with lines title "∫cos(x)dx", \
-		  	"$<" index 3 using 1:2 with linespoints title "Integral"; \
+		  	"$<" index 0 using 0:1 with lines title "Rosen route", \
+	' | gnuplot
+plot.Himmel.svg : Out.txt Makefile
+	echo 'set terminal svg background "white";\
+		  set output "$@"; \
+		  set xlabel "x"; \
+		  set ylabel "y"; \
+		  set title "blabla"; \
+		  set datafile separator comma; \
+		  plot \
+		  	"$<" index 1 using 0:1 with lines title "Himmel route", \
+	' | gnuplot
+plot.Beale.svg : Out.txt Makefile
+	echo 'set terminal svg background "white";\
+		  set output "$@"; \
+		  set xlabel "x"; \
+		  set ylabel "y"; \
+		  set title "blabla"; \
+		  set datafile separator comma; \
+		  plot \
+		  	"$<" index 2 using 0:1 with lines title "Beale route", \
 	' | gnuplot
 
 out.quard.txt: main
