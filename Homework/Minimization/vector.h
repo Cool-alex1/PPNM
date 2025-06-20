@@ -18,6 +18,7 @@ class vector{
 	vector(vector&&)=default;
 	~vector()=default;
 
+	vector(std::initializer_list<double> list) : vec(list.begin(),list.end()) {}
 	vector& operator=(const vector&)=default;
 	vector& operator=(vector&&)=default;
 	vector& operator+=(const vector&);
@@ -28,16 +29,19 @@ class vector{
 	vector& operator/=(double);
 
 	inline double& operator[](int i) {
-		if(i < len){return vec[i];}
+		if(i < len && 0 <= i){return vec[i];}
+		if(-i < len && 0 >= i){return vec[vec.size()+i];}
 		throw std::invalid_argument("Vector call out of bounce: (" + std::to_string(i) + ")");}
 	inline double operator[](int i) const {
-		if(i < len){return vec[i];}
+		if(i < len && 0 <= i){return vec[i];}
+		if(-i < len && 0 >= i){return vec[vec.size()+i];}
 		throw std::invalid_argument("Vector call out of bounce: (" + std::to_string(i) + ")");}
 
 	void print(std::string s="") const;
 	vector swap(int, int) const;
 	vector copy() const;
 	vector diff() const;
+	vector unit(int) const;
 	double norm() const;
 	void append(const vector&);
 	void append(const double&);

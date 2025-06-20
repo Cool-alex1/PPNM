@@ -3,27 +3,34 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
-
 Out.txt: main
-	./main --input higgs.data.txt > $@
+	./main --input higgs.data.txt --output 0 > $@
+
+higgs_fit.txt: main
+	./main --input higgs.data.txt --output higgs > $@
 
 
 main : main.o matrix.o QR.o vector.o mini.o
 main.o matrix.o vector.o QR.o mini.o: matrix.h vector.h mini.h
-# vector.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
-# matrix.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
-# main.o QR.o mini.o: vector.h vector.cc matrix.h matrix.cc QR.h QR.cc mini.h mini.cc
-
 
 
 # %.o : %.cc %.h
 # 	@echo MAKING $@ WITH $^
 # 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
+Plot.higgs.svg : higgs.data.txt higgs_fit.txt Makefile
+	echo 'set terminal svg background "white"; \
+		  set output "$@"; \
+		  set xlabel "Energy [GeV]"; \
+		  set ylabel "σ [arb. units]"; \
+		  plot \
+		  	"$<" with errorbars pointtype 7 title "experimental data",\
+			"higgs_fit.txt" with lines title "fit"\
+	' | gnuplot
 
 
-out.lin.txt: main
-	./main -mode "lin" > $@; 
+
+
 plot.Rosen.svg : Out.txt Makefile
 	echo 'set terminal svg background "white";\
 		  set output "$@"; \
@@ -55,22 +62,7 @@ plot.Beale.svg : Out.txt Makefile
 		  	"$<" index 2 using 0:1 with lines title "Beale route", \
 	' | gnuplot
 
-out.quard.txt: main
-	./main -mode "quard" > $@; 
-plot.quard.svg : out.quard.txt Makefile
-	echo 'set terminal svg background "white";\
-		  set output "$@"; \
-		  set xlabel "x"; \
-		  set ylabel "f(x)"; \
-		  set title "blabla"; \
-		  set datafile separator comma; \
-		  plot \
-		  	"$<" index 1 using 1:2 with lines title "Target func: cos(x)", \
-		  	"$<" index 2 using 1:2 with lines title "∫cos(x)dx", \
-		  	"$<" index 3 using 1:2 with points title "Integral", \
-		  	"$<" index 5 using 1:2 with linespoints title "Derivative", \
-		  	"$<" index 4 using 1:2 with lines title "Spline"; \
-	' | gnuplot
+
 
 
 

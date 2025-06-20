@@ -160,6 +160,11 @@ vector vector::copy() const {
 	}
 	return m;
 }
+vector vector::unit(int i) const {
+	vector m(len);
+	m[i] = vec[i];
+	return m;
+}
 vector vector::swap(int a, int b) const {
 	vector m = SELF.copy();
 	double temp1 = m[a];
