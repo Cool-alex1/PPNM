@@ -7,6 +7,9 @@
 
 std::function<double(double)> f_test = [](double x){return x*x;};
 std::function<double(double)> f_GW = [](double x){return x*std::exp(-x*x);};
+std::function<double(double)> f_cos = [](double x){return std::cos(x);};
+std::function<double(double)> f_1 = [](double x){return std::cos(5*x-1)*std::exp(-x*x);};
+// std::function<double(double)> f_1 = [](double x){return ;};
 // std::function<double(vector)> f_himmel = [](vector x){return std::pow(x[0]*x[0] + x[1]-11, 2) + std::pow(x[0] + x[1]*x[1]-7, 2);};
 // std::function<double(vector)> f_beale = [](vector x){return std::pow(1.5-x[0]+x[0]*x[1],2) + std::pow(2.25 - x[0] + x[0]*x[1]*x[1],2) + std::pow(2.625 - x[0] + x[0]*x[1]*x[1]*x[1],2);}; //Minimum at (4,-9)*
 
@@ -24,7 +27,7 @@ int main(int argc, char** argv) {
     }
     
     
-    std::function<double(double)> acc_f = f_GW;
+    std::function<double(double)> f = f_test;
 
 
     // Make training data
@@ -34,7 +37,7 @@ int main(int argc, char** argv) {
     for(int i=0; i<points; i++){
         matrix temp(1, 2);
         temp(0,0) = (xmax - xmin)/(points+1)*i+xmin;
-        temp(0,1) = acc_f(temp(0,0));
+        temp(0,1) = f(temp(0,0));
         data = data.append(temp, 1);
     }
     vector xs, ys;
@@ -47,10 +50,10 @@ int main(int argc, char** argv) {
 
 
     nn test(3);
+    test.train_ana(xs, ys);
 
     // std::cout << test.eval(3) << std::endl;
 
-    test.train(xs, ys);
     test.p.print("p = ");
     std::cout << test.eval(3) << std::endl;
     

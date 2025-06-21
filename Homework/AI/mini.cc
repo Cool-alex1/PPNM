@@ -14,8 +14,10 @@ vector gradient(const std::function<double(vector)>& f, vector x){
     vector gf = vector(len(x));
     double dxi;
     for (int i=0; i<len(x); i++){
-        dxi = (1+std::abs(x[i]))*std::pow(2, -2);
+        dxi = (1+std::abs(x[i]))*std::pow(2, -26);
         x[i] += dxi;
+        // std::cout << f(x)-fx << std::endl;
+        // std::cout << fx << std::endl;
         gf[i] = (f(x)-fx)/dxi;
         x[i] -= dxi;
     }
@@ -39,11 +41,15 @@ matrix hessian(const std::function<double(vector)>& f, vector x){
 }
 
 
-std::tuple<vector, int> newton(const std::function<double(vector)> f, vector x, double acc){
+std::tuple<vector, int> newton(const std::function<double(vector)> f, vector xind, double acc){
     int n = 0;
+    vector x = xind.copy();
     while (1) {
+        if(n%10000 == 0){
+            std::cout << "f(x) = " << f(x) << std::endl;
+        }
         vector g = gradient(f, x);
-        g.print("g = ");
+        // g.print("g = ");
         if (g.norm() < acc) break;
         matrix H = hessian(f, x);
         QR fac(H);

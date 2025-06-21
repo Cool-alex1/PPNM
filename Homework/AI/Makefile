@@ -4,7 +4,7 @@ TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
 Out.txt: main
-	./main --input higgs.data.txt --output 0 > $@
+	./main > $@
 
 
 
