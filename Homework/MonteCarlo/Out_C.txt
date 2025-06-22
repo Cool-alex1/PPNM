@@ -1,12 +1,12 @@
-Plain MC:
-∫ 2D gauss = 3.1628 +/- 0.0119008
+Unit circle:
+∫ unit circle = 3.1628 +/- 0.0119008
 With 10000000 samples
 Expected result = 3.14159
 Actual err = 0.0212027
 
 
-Stratified MC:
-∫ 2D gauss = 3.14347 +/- 0.00126706
+Unit circle:
+∫ unit circle = 3.14347 +/- 0.00126706
 With 10000000 samples
 Expected result = 3.14159
 Actual err = 0.00187565
