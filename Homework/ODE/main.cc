@@ -35,7 +35,7 @@ std::function<vector(double, vector)> plaOrbit(double ε){
         /* u''(φ) + u(φ) = 1 + εu(φ)^2 */
         vector res(2);
         res[0] = u[1];
-        res[1] = 1 + ε*u[1]*u[1] - u[0];
+        res[1] = 1 + ε*u[0]*u[0] - u[0];
         return res;
     };
     return f;
@@ -124,7 +124,7 @@ int main(int argc, char** argv) {
     y0[0] = 1.0; y0[1] = -0.5;
     a = 0.0, b = 25;
     acc = 0.001, eps = 0.001;
-    auto res_p3 = rkdriver(plaOrbit(0.01), a, b, y0, 0.125, acc, eps);
+    auto res_p3 = rkdriver(plaOrbit(0.1), a, b, y0, 0.125, acc, eps);
     xlist = std::get<0>(res_p3);
     ylists = std::get<1>(res_p3);
     

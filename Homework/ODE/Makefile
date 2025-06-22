@@ -50,15 +50,16 @@ plot.PO1.svg : Out.txt Makefile
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
-		  plot "$<" index 3 using (1/$$2)*cos($$1):(1/$$2)*sin($$1) with lines notitle\
+		  set title "Planetary orbit,   f(0)=1   df(0)=0.01   ε=0"; \
+		  set size square; \
+		  plot [-1.1:1.1][-1.1:1.1] "$<" index 3 using (1/$$2)*cos($$1):(1/$$2)*sin($$1) with lines notitle\
 	' | gnuplot
 plot.PO2.svg : Out.txt Makefile
 	echo 'set terminal svg background "white";\
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "Planetary orbit,   f(0)=1   df(0)=-0.5   ε=0"; \
 		  plot "$<" index 4 using (1/$$2)*cos($$1):(1/$$2)*sin($$1) with lines notitle\
 	' | gnuplot
 plot.PO3.svg : Out.txt Makefile
@@ -66,7 +67,7 @@ plot.PO3.svg : Out.txt Makefile
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "Planetary orbit,   f(0)=1   df(0)=-0.5   ε=0.1"; \
 		  plot "$<" index 5 using (1/$$2)*cos($$1):(1/$$2)*sin($$1) with lines notitle\
 	' | gnuplot
 
