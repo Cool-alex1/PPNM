@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     matrix data(0, 2);
     for(int i=0; i<points; i++){
         matrix temp(1, 2);
-        temp(0,0) = (xmax - xmin)/(points+1)*i+xmin;
+        temp(0,0) = (xmax - xmin)/(points-1)*i+xmin;
         temp(0,1) = f(temp(0,0));
         data = data.append(temp, 1);
     }
@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
     xs = toVector(data.getCol(0));
     ys = toVector(data.getCol(1));
     
-    // data.print("p ");
+    // xs.print("xs = ");
     // (data.getCol(0)).print("x ");
 
 
@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     nn test(3);
     test.train_ana(xs, ys, 3);
 
-    // std::cout << test.eval(3) << std::endl;
+    std::cout << test.eval(3) << std::endl;
 
     test.p.print("p = ");
     std::cout << test.eval(3) << std::endl;

@@ -18,7 +18,7 @@ class vector{
 	vector(vector&&)=default;
 	~vector()=default;
 
-	vector(std::initializer_list<double> list) : vec(list.begin(),list.end()) {}
+	vector(std::initializer_list<double> list) : vec(list.begin(),list.end()) {len = list.size();}
 	vector& operator=(const vector&)=default;
 	vector& operator=(vector&&)=default;
 	vector& operator+=(const vector&);

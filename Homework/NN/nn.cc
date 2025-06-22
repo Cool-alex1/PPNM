@@ -61,69 +61,88 @@ void nn::train_ana(const vector& xs, const vector& ys, const int& epoch){
         };
         return c;
     };
-    std::function<double(vector,vector,int)> dC_daj = [&](vector p_flat, vector ak, int j){
-        double c = 0;
-        for(int k = 0; k<xs.len ; ++k){
-            c += ak[k] * acc_df((xs[k]-p_flat[j])/p_flat[j+n]) / (-p_flat[j+n]);
-        };
-        return c * 2 * p_flat[j+2*n];
-    };
-    std::function<double(vector,vector,int)> dC_dbj = [&](vector p_flat, vector ak, int j){
-        double c = 0;
-        for(int k = 0; k<xs.len ; ++k){
-            c += ak[k] * acc_df((xs[k]-p_flat[j])/p_flat[j+n]) * (-(xs[k]-p_flat[j])/std::pow(p_flat[j+n],2));
-        };
-        return c * 2 * p_flat[j+2*n];
-    };
-    std::function<double(vector,vector,int)> dC_dwj = [&](vector p_flat, vector ak, int j){
-        double c = 0;
-        for(int k = 0; k<xs.len ; ++k){
-            c += ak[k] * acc_f((xs[k]-p_flat[j])/p_flat[j+n]);
-        };
-        return c * 2;
-    };
+    // std::function<double(vector,vector,int)> dC_daj = [&](vector p_flat, vector ak, int j){
+    //     double c = 0;
+    //     for(int k = 0; k<xs.len ; ++k){
+    //         c += ak[k] * acc_df((xs[k]-p_flat[j])/p_flat[j+n]) / (-p_flat[j+n]);
+    //     };
+    //     return c * 2 * p_flat[j+2*n];
+    // };
+    // std::function<double(vector,vector,int)> dC_dbj = [&](vector p_flat, vector ak, int j){
+    //     double c = 0;
+    //     for(int k = 0; k<xs.len ; ++k){
+    //         c += ak[k] * acc_df((xs[k]-p_flat[j])/p_flat[j+n]) * (-(xs[k]-p_flat[j])/std::pow(p_flat[j+n],2));
+    //     };
+    //     return c * 2 * p_flat[j+2*n];
+    // };
+    // std::function<double(vector,vector,int)> dC_dwj = [&](vector p_flat, vector ak, int j){
+    //     double c = 0;
+    //     for(int k = 0; k<xs.len ; ++k){
+    //         c += ak[k] * acc_f((xs[k]-p_flat[j])/p_flat[j+n]);
+    //     };
+    //     return c * 2;
+    // };
+    
+    // std::function<double(double,double,vector)> ak = [&](double x, double y, vector p_flat){
+    //     double a = 0;
+    //     for(int i=0; i<n ; ++i){
+    //         a += acc_f((x-p_flat[i])/p_flat[i+n])*p_flat[i+n*2];
+    //     };
+    //     return a - y;};
+    // std::function<double(double, double, vector)> dC_daj = [&](double x, double y, vector p_s){return -2 * ak(x,y) * p_s[2]/p_s[1] * acc_df((x - p_s[0])/p_s[1]);};
+    // std::function<double(double, double, vector)> dC_dbj = [&](double x, double y, vector p_s){return -2 * ak(x,y) * p_s[2]/p_s[1]/p_s[1] * acc_df((x - p_s[0])/p_s[1]) * (x - p_s[0]);};
+    // std::function<double(double, double, vector)> dC_dwj = [&](double x, double y, vector p_s){return 2 * ak(x,y) * acc_f((x - p_s[0])/p_s[1]);};
 
     double lr = 0.01;
     int N = 0;
     vector p_vec = toVector(p.reshape(1, 3*n));
     vector p_im = vector(n*3)+1;
     vector g(n*3);
-    vector ak(xs.len);
-
-    vector best_p(p_vec.len);
+    vector ak_v(xs.len);
+ 
+    vector best_p(n*3);
     double best_cost = 10000000;
     double cost = 0;
     
-    // std::cout << cost_func(p_im) << ", " << cost_func(p_vec) << std::endl;
     
-    std::uniform_real_distribution<double> unif(0,2);
-    std::default_random_engine re(5);
+    std::uniform_real_distribution<double> unif(-1,1);
+    std::default_random_engine re(0);
     
     for (int e=0; e<epoch; e++){
         for(int j = 0; j < n ; ++j){
-            p_vec[j] = unif(re);
-            p_vec[j + n] = unif(re);
-            p_vec[j + n*2] = unif(re);
+            p_vec[j] = unif(re)*2;
+            p_vec[j + n] = unif(re)*2;
+            p_vec[j + n*2] = unif(re)*2;
         }
-        p_vec.print("p_vec = ");
         
-    
+        
         // while(1e-9 < std::abs(cost_func(p_im) - cost_func(p_vec)) && N<200000){
-        while(N < 1000){
+        while(N < 10000){
             if(N != 0) p_vec = p_im.copy();
             
-            int s;
-            for (int j=0; j<n; j++){
-                for (int k=0; k<xs.len; k++){
-                    s = 0;
-                    for (int j=0; j<n; j++){s += f_neuron(xs[k], p_vec[j], p_vec[j + n], p_vec[j + n*2]);}
-                    ak[k] = s - ys[k];
-                }
-            
-                g[j] = dC_daj(p_vec, ak, j);
-                g[j + n] = dC_dbj(p_vec, ak, j);
-                g[j + 2*n] = dC_dwj(p_vec, ak, j);
+            for (int k=0; k<xs.len; k++){
+                double a = 0;
+                for(int j=0; j<n ; ++j){
+                    a += acc_f((xs[k]-p_vec[j])/p_vec[j+n])*p_vec[j+n*2];
+                };
+                ak_v[k] = a - ys[k];
             }
+                
+            // ak_v.print("ak = ");
+            
+            for (int j=0; j<n; j++){
+                vector p_small({p_vec[j], p_vec[j+n], p_vec[j+n*2]});
+                
+                for (int k=0; k<xs.len; k++){
+                    g[j] += dC_daj(xs[k], ak_v[k], p_small);
+                    g[j + n] += dC_dbj(xs[k], ak_v[k], p_small);
+                    g[j + 2*n] += dC_dwj(xs[k], ak_v[k], p_small);
+                }
+            }
+            g /= g.norm();
+                    
+                    
+            // toMatrix(g).reshape(3, n).T().print("g = ");
 
             p_im = p_vec - lr*g;
             
