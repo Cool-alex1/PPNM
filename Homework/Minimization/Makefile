@@ -3,10 +3,13 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+all: Out.txt out.higgs_fit.txt Plot.higgs.svg 
+
 Out.txt: main
 	./main --input higgs.data.txt --output 0 > $@
 
-higgs_fit.txt: main
+
+out.higgs_fit.txt: main
 	./main --input higgs.data.txt --output higgs > $@
 
 
@@ -18,49 +21,49 @@ main.o matrix.o vector.o QR.o mini.o: matrix.h vector.h mini.h
 # 	@echo MAKING $@ WITH $^
 # 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
-Plot.higgs.svg : higgs.data.txt higgs_fit.txt Makefile
+Plot.higgs.svg : higgs.data.txt out.higgs_fit.txt Makefile
 	echo 'set terminal svg background "white"; \
 		  set output "$@"; \
 		  set xlabel "Energy [GeV]"; \
 		  set ylabel "σ [arb. units]"; \
 		  plot \
 		  	"$<" with errorbars pointtype 7 title "experimental data",\
-			"higgs_fit.txt" with lines title "fit"\
+			"out.higgs_fit.txt" with lines title "fit"\
 	' | gnuplot
 
 
 
 
-plot.Rosen.svg : Out.txt Makefile
-	echo 'set terminal svg background "white";\
-		  set output "$@"; \
-		  set xlabel "x"; \
-		  set ylabel "y"; \
-		  set title "blabla"; \
-		  set datafile separator comma; \
-		  plot \
-		  	"$<" index 0 using 0:1 with lines title "Rosen route", \
-	' | gnuplot
-plot.Himmel.svg : Out.txt Makefile
-	echo 'set terminal svg background "white";\
-		  set output "$@"; \
-		  set xlabel "x"; \
-		  set ylabel "y"; \
-		  set title "blabla"; \
-		  set datafile separator comma; \
-		  plot \
-		  	"$<" index 1 using 0:1 with lines title "Himmel route", \
-	' | gnuplot
-plot.Beale.svg : Out.txt Makefile
-	echo 'set terminal svg background "white";\
-		  set output "$@"; \
-		  set xlabel "x"; \
-		  set ylabel "y"; \
-		  set title "blabla"; \
-		  set datafile separator comma; \
-		  plot \
-		  	"$<" index 2 using 0:1 with lines title "Beale route", \
-	' | gnuplot
+# plot.Rosen.svg : Out.txt Makefile
+# 	echo 'set terminal svg background "white";\
+# 		  set output "$@"; \
+# 		  set xlabel "x"; \
+# 		  set ylabel "y"; \
+# 		  set title "blabla"; \
+# 		  set datafile separator comma; \
+# 		  plot \
+# 		  	"$<" index 0 using 0:1 with lines title "Rosen route", \
+# 	' | gnuplot
+# plot.Himmel.svg : Out.txt Makefile
+# 	echo 'set terminal svg background "white";\
+# 		  set output "$@"; \
+# 		  set xlabel "x"; \
+# 		  set ylabel "y"; \
+# 		  set title "blabla"; \
+# 		  set datafile separator comma; \
+# 		  plot \
+# 		  	"$<" index 1 using 0:1 with lines title "Himmel route", \
+# 	' | gnuplot
+# plot.Beale.svg : Out.txt Makefile
+# 	echo 'set terminal svg background "white";\
+# 		  set output "$@"; \
+# 		  set xlabel "x"; \
+# 		  set ylabel "y"; \
+# 		  set title "blabla"; \
+# 		  set datafile separator comma; \
+# 		  plot \
+# 		  	"$<" index 2 using 0:1 with lines title "Beale route", \
+# 	' | gnuplot
 
 
 
@@ -68,5 +71,5 @@ plot.Beale.svg : Out.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg *.log main
 

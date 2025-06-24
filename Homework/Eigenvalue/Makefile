@@ -12,6 +12,8 @@ TIME = time --portability --append --output=$@ --format "$$n %e"
 # CXXFLAGS = -std=c++23 -O1
 # LDLIBS = -lstdc++
 
+all: Out.txt Out.Ham.txt out.rmax_convergence.txt plot.rmax_convergence.svg out.dr_convergence.txt plot.dr_convergence.svg out.waveFuncs.txt plot.waveFuncs.svg out.speed.txt plot.speed.svg 
+
 
 Out.txt: eigenValTest
 	./eigenValTest > $@
@@ -105,5 +107,5 @@ plot.speed.svg : out.speed.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) *.o [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg *.log main
 

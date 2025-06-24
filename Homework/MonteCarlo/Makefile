@@ -3,6 +3,10 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+
+all: Out.txt Out_A.txt Out_B.txt Out_C.txt out.UnitCir.txt out.UnitCirB.txt plot.cirErr.svg plot.cirErrB.svg 
+
+
 Out.txt: main
 	./main > $@
 
@@ -15,13 +19,13 @@ Out_B.txt: main
 Out_C.txt: main
 	./main --opg C > $@
 
-UnitCir.txt: main
+out.UnitCir.txt: main
 	>$@
 	for n in $$(seq 8 1 40); \
 		do ./main --opg A --Npow $$n >> $@; \
 	done
 
-UnitCirB.txt: main
+out.UnitCirB.txt: main
 	>$@
 	for n in $$(seq 8 1 40); \
 		do ./main --opg B --Npow $$n >> $@; \
@@ -33,12 +37,9 @@ main : main.o vector.o
 main.o vector.o : vector.h
 
 
-# %.o : %.cc %.h
-# 	@echo MAKING $@ WITH $^
-# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 
-plot.cirErr.svg : UnitCir.txt Makefile
+plot.cirErr.svg : out.UnitCir.txt Makefile
 	echo 'set terminal svg background "white"; \
 		  set output "$@"; \
 		  set key left; \
@@ -53,7 +54,7 @@ plot.cirErr.svg : UnitCir.txt Makefile
 		    f(x) title sprintf("a/sqrt(N) fit, a = %3.5f",a),\
 		  	"$<" index 0 using 1:3 with point title "Actual err" \
 	' | gnuplot
-plot.cirErrB.svg : UnitCirB.txt Makefile
+plot.cirErrB.svg : out.UnitCirB.txt Makefile
 	echo 'set terminal svg background "white"; \
 		  set output "$@"; \
 		  set key left; \
@@ -72,5 +73,5 @@ plot.cirErrB.svg : UnitCirB.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg *.log main
 

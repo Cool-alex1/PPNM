@@ -1,4 +1,4 @@
-A)
+gA)
 Gaussian wavelet:
 Number of neurons : 8
 Lowest found cost: 0.0778493

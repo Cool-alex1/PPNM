@@ -3,6 +3,8 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+all: Out.txt Out.maxCon.txt Out.minCon.txt Out.accCon.txt Out.epsCon Plot.rmaxCon.svg Plot.rminCon.svg Plot.accCon.svg Plot.epsCon.svg
+
 Out.txt: main
 	./main  > $@
 
@@ -86,5 +88,5 @@ Plot.epsCon.svg : Out.epsCon.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg main
 

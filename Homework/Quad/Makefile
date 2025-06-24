@@ -3,6 +3,7 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+all: Out.txt out.erf.txt out.erf.svg 
 
 Out.txt: main
 	./main > $@
@@ -35,5 +36,5 @@ Plot.erf.svg : out.erf.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg main erfplotter
 

@@ -3,6 +3,8 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+all: Out.txt Out.plotA.txt Out.plotB.txt Plot.nnFitA.svg Plot.nnFitB.svg
+
 Out.txt: main
 	./main > $@
 
@@ -15,9 +17,6 @@ Out.plotA.txt: main
 Out.plotB.txt: main
 	./main --opg Bp > $@
 
-# %.o : %.cc %.h
-# 	@echo MAKING $@ WITH $^
-# 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 
 
 Plot.nnFitA.svg : Out.plotA.txt Makefile
@@ -50,5 +49,5 @@ Plot.nnFitB.svg : Out.plotB.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg main
 

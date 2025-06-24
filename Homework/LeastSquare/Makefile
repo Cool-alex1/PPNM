@@ -3,6 +3,7 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+all: Out.txt plot.fit.svg 
 
 Out.txt: main
 	./main > $@
@@ -55,5 +56,5 @@ plot.fit.svg : Out.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) *.o [Oo]ut*
+	$(RM) [Oo]ut* *.o *.svg *.log main
 

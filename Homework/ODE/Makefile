@@ -3,6 +3,7 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
+all: Out.txt plot.harm.svg plot.diffFunc.svg plot.scipy1.svg plot.PO1.svg plot.PO2.svg plot.PO3.svg 
 
 Out.txt: main
 	./main > $@
@@ -17,7 +18,7 @@ plot.harm.svg : Out.txt Makefile
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "ddy = -y"; \
 		  set datafile separator comma; \
 		  plot \
 		  	"$<" index 0 using 1:2 with lines title "Target func: cos(x)", \
@@ -28,7 +29,7 @@ plot.diffFunc.svg : Out.txt Makefile
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "ddy = dy + x"; \
 		  set datafile separator comma; \
 		  plot \
 		  	"$<" index 1 using 1:2 with linespoints title "Integral"; \
@@ -39,7 +40,7 @@ plot.scipy1.svg : Out.txt Makefile
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "SciPy: ddtheta(t) = - b*dtheta(t) - c*sin(theta(t))"; \
 		  set datafile separator comma; \
 		  plot \
 		  	"$<" index 2 using 1:2 with lines title "Integral"; \
@@ -77,5 +78,4 @@ plot.PO3.svg : Out.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut*
-
+	$(RM) [Oo]ut* *.o *.svg main
