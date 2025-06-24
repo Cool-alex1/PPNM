@@ -17,7 +17,8 @@ Plot.alpha.svg : Out.txt Makefile
 		  set xlabel "α"; \
 		  set ylabel "f(v-αΔv)"; \
 		  plot \
-		  	"$<" index 0 using 1:2 with lines, \
+		  	"$<" index 1 using 1:2 with lines title "f_α", \
+		  	"$<" index 1 using 1:3 with lines title "f", \
 	' | gnuplot
 
 
