@@ -107,7 +107,7 @@ int main(int argc, char** argv) {
         std::cout << "\nA approx fit can be seen on Plot.nnFitB.svg." <<
             "\nThe fit, the derivatives, and the anti-derivative" <<
             "\nlookes to be pretty accurate, whereas the double derivative" <<
-            "\nseems to be around 0, but is osculating." << std::endl;
+            "\nseems to be around 0, but is oscillating." << std::endl;
         std::cout << "\n\n" << std::endl;
 
         if(opg == "Bp"){

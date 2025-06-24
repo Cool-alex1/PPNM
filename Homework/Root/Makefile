@@ -3,7 +3,7 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
-all: Out.txt Out.maxCon.txt Out.minCon.txt Out.accCon.txt Out.epsCon Plot.rmaxCon.svg Plot.rminCon.svg Plot.accCon.svg Plot.epsCon.svg
+all: Out.txt Plot.rmaxCon.svg Plot.rminCon.svg Plot.accCon.svg Plot.epsCon.svg
 
 Out.txt: main
 	./main  > $@

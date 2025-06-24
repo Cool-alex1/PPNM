@@ -1,23 +1,23 @@
 Linear spline:
-Integral of linear spline of cos(x) from 0 to 2pi: -0.00046951 expected approx: 0
-Integral of linear spline of cos(x) from 0 to 0.5: 0.469396 expected exactly: 0.442538 by explicit calcualtion
-Integral of linear spline of cos(x) from 0 to 9: 0.403497
+Integral of linear spline of cos(x) from 0 to 2pi: -1.52014e-05 expected approx: 0
+Integral of linear spline of cos(x) from 0 to 0.5: 0.476926 expected exactly: 0.442538 by explicit calcualtion
+Integral of linear spline of cos(x) from 0 to 9: 0.40997
 
 
 
 
 Quadratic spline:
 Coefficients for constant function f(x) = 1:
-b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+b = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 Expected b_i = 0, c_i = 0 for all i
 
 Coefficients for linear function f(x) = x:
-b = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+b = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 Expected b_i = 1, c_i = 0 for all i
 
 Coefficients for quadratic function f(x) = x^2:
-b = [1, 1, 5, 5, 9, 9, 13, 13, 17, 17, 21, 21, 25, 25, 29, 29, 33, 33, 37]
-c = [0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0]
+b = [1, 1, 5, 5, 9, 9, 13, 13, 17, 17, 21, 21, 25, 25, 29, 29, 33, 33, 37, 37, 41, 41, 45, 45, 49, 49, 53, 53, 57, 57, 61, 61, 65, 65, 69, 69, 73, 73, 77]
+c = [0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0]
 Expected b = [1,1,5,5,9,9,...] and c = [0,2,0,2,...]

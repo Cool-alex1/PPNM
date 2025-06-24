@@ -13,12 +13,12 @@ class vector{
 	vector(int n): vec(n){
         len = n;
     }
+	vector(std::initializer_list<double> list) : vec(list.begin(),list.end()) {len = list.size();}
 	vector() = default;
 	vector(const vector&)=default;
 	vector(vector&&)=default;
 	~vector()=default;
 
-	vector(std::initializer_list<double> list) : vec(list.begin(),list.end()) {}
 	vector& operator=(const vector&)=default;
 	vector& operator=(vector&&)=default;
 	vector& operator+=(const vector&);

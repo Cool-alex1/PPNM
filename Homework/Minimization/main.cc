@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
     if(out == "0"){
         vector start(2);
         
+        std::cout << "Accuracy for all = 1e-5\n" << std::endl;
         std::cout << "A) and C)" << std::endl;
         std::cout << "Rosenbrock function:" << std::endl;
         start[0] = 0;
@@ -68,20 +69,54 @@ int main(int argc, char** argv) {
 
 
         std::cout << "Himmelblau's function:" << std::endl;
-        start[0] = 2;
-        start[1] = 4;
-        std::tuple<vector, int> newHimmel = newton(f_himmel, start);
-        vector minHimmel = std::get<0>(newHimmel);
+        std::cout << "Expected min: [" << 3 << ", " << 2 << "]" << std::endl;
+        std::cout << "Expected min: [" << -2.80512 << ", " << 3.13131 << "]" << std::endl;
+        std::cout << "Expected min: [" << 3.58443 << ", " << -1.84813 << "]" << std::endl;
+        std::cout << "Expected min: [" << -3.77931 << ", " << -3.28319 << "]" << std::endl;
+        std::tuple<vector, int> newHimmel;
+        vector minHimmel;
+        start = vector({4, 4});
+        newHimmel = newton(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
         n = std::get<1>(newHimmel);
-        minHimmel.print("min = ");
-        std::cout << "Expected min (3, 2)" << std::endl;
-        std::cout << "With forward diff: From (" << start[0] << ", " << start[1] << ") to min in " << n << " steps" << std::endl;
+        std::cout << "With forward diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        start = vector({-4, 4});
+        newHimmel = newton(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
+        n = std::get<1>(newHimmel);
+        std::cout << "With forward diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        start = vector({4, -4});
+        newHimmel = newton(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
+        n = std::get<1>(newHimmel);
+        std::cout << "With forward diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        start = vector({-4, -4});
+        newHimmel = newton(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
+        n = std::get<1>(newHimmel);
+        std::cout << "With forward diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
         
+        start = vector({4, 4});
         newHimmel = newton2(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
         n = std::get<1>(newHimmel);
-        std::cout << "With central diff: From (" << start[0] << ", " << start[1] << ") to min in " << n << " steps\n\n" << std::endl;
-        // std::cout << "\n\n" << std::endl;
-
+        std::cout << "With central diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        start = vector({-4, 4});
+        newHimmel = newton2(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
+        n = std::get<1>(newHimmel);
+        std::cout << "With central diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        start = vector({4, -4});
+        newHimmel = newton2(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
+        n = std::get<1>(newHimmel);
+        std::cout << "With central diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        start = vector({-4, -4});
+        newHimmel = newton2(f_himmel, start);
+        minHimmel = std::get<0>(newHimmel);
+        n = std::get<1>(newHimmel);
+        std::cout << "With central diff: From (" << start[0] << ", " << start[1] << ") to (" << minHimmel[0] << ", " << minHimmel[1] << ") in " << n << " steps" << std::endl;
+        std::cout << "\n\n" << std::endl;
 
 
 

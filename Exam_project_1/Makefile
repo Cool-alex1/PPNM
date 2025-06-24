@@ -11,14 +11,31 @@ main : main.o matrix.o vector.o
 main.o matrix.o vector.o : matrix.h vector.h
 
 
+Plot.alpha2.svg : Out.txt Makefile
+	echo 'set terminal svg background "white"; \
+		  set output "$@"; \
+		  set xlabel "α"; \
+		  set ylabel "f(v-αΔv)"; \
+		  plot \
+		  	"$<" index 2 using 1:2 with linespoints title "f_α", \
+		  	"$<" index 2 using 1:3 with lines title "f", \
+	' | gnuplot
 Plot.alpha.svg : Out.txt Makefile
 	echo 'set terminal svg background "white"; \
 		  set output "$@"; \
 		  set xlabel "α"; \
 		  set ylabel "f(v-αΔv)"; \
 		  plot \
-		  	"$<" index 1 using 1:2 with lines title "f_α", \
-		  	"$<" index 1 using 1:3 with lines title "f", \
+		  	"$<" index 2 using 1:2 with lines title "f", \
+	' | gnuplot
+
+Plot.hyd.svg : Out.txt Makefile
+	echo 'set terminal svg background "white"; \
+		  set output "$@"; \
+		  set xlabel "r"; \
+		  set ylabel "y"; \
+		  plot \
+		  	"$<" index 1 using 1:2 with lines, \
 	' | gnuplot
 
 

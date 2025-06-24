@@ -55,6 +55,16 @@ int main(int argc, char** argv) {
     std::vector<vector> ylists;
 
 
+    std::cout << "Hereunder are the generated solutions for the six plots in order:\n" 
+              << " - plot.harm.svg (A)\n"
+              << " - plot.diffharm.svg (A)\n"
+              << " - plot.scipy1.svg (A)\n"
+              << " - plot.PO1.svg (B)\n"
+              << " - plot.PO2.svg (B)\n"
+              << " - plot.PO3.svg (B)\n";
+
+
+
     // y'' = -y
     y0[0] = 1.0; y0[1] = 0.0;
     a = 0.0, b = 5;
@@ -135,5 +145,5 @@ int main(int argc, char** argv) {
 
     
     
-    return 9;
+    return 0;
 }

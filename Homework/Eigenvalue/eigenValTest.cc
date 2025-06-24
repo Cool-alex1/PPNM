@@ -34,5 +34,5 @@ int main(){
     std::cout << "V^TV = I: " << approx(E.V.T()*E.V, I(n)) << std::endl;
     std::cout << "VDV^T = A: " << approx(E.V * E.D * E.V.T(), a) << std::endl;
     std::cout << "V^TAV = D: " << approx(E.V.T() * a * E.V, E.D) << std::endl;    
-    return 10;
+    return 0;
 }

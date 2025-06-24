@@ -4,7 +4,7 @@ TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
-all: Out.txt out.lin.txt plot.lin.svg out.quard.txt plot.quard.svg
+all: Out.txt plot.lin.svg plot.quard.svg
 
 Out.txt: main
 	./main > $@
@@ -15,18 +15,19 @@ main.o vector.o spline.o: vector.h
 
 
 out.lin.txt: main
-	./main -mode "lin" > $@; 
+	./main -mode lin > $@; 
 plot.lin.svg : out.lin.txt Makefile
 	echo 'set terminal svg background "white";\
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "Linear spline"; \
 		  set datafile separator comma; \
 		  plot \
-		  	"$<" index 1 using 1:2 with lines title "Target func: cos(x)", \
-		  	"$<" index 2 using 1:2 with lines title "∫cos(x)dx", \
-		  	"$<" index 3 using 1:2 with linespoints title "Integral"; \
+		  	"$<" index 0 using 1:2 with lines title "Target func: cos(x)", \
+		  	"$<" index 1 using 1:2 with lines title "∫cos(x)dx", \
+		  	"$<" index 2 using 1:2 with points title "Spline", \
+		  	"$<" index 3 using 1:2 with points title "Integral"; \
 	' | gnuplot
 
 out.quard.txt: main
@@ -36,14 +37,14 @@ plot.quard.svg : out.quard.txt Makefile
 		  set output "$@"; \
 		  set xlabel "x"; \
 		  set ylabel "f(x)"; \
-		  set title "blabla"; \
+		  set title "Quadratic spline"; \
 		  set datafile separator comma; \
 		  plot \
-		  	"$<" index 1 using 1:2 with lines title "Target func: cos(x)", \
-		  	"$<" index 2 using 1:2 with lines title "∫cos(x)dx", \
-		  	"$<" index 3 using 1:2 with points title "Integral", \
-		  	"$<" index 5 using 1:2 with linespoints title "Derivative", \
-		  	"$<" index 4 using 1:2 with lines title "Spline"; \
+		  	"$<" index 0 using 1:2 with lines title "Target func: cos(x)", \
+		  	"$<" index 1 using 1:2 with lines title "∫cos(x)dx", \
+		  	"$<" index 2 using 1:2 with points title "Integral", \
+		  	"$<" index 4 using 1:2 with linespoints title "Derivative", \
+		  	"$<" index 3 using 1:2 with points title "Spline"; \
 	' | gnuplot
 
 

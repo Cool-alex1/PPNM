@@ -1,4 +1,4 @@
-gA)
+A)
 Gaussian wavelet:
 Number of neurons : 8
 Lowest found cost: 0.0778493
@@ -26,7 +26,7 @@ Optimal p = [-1.477, 0.663477, -1.86171, -1.94764, 0.0910574, 0.785722, 1.51557,
 A approx fit can be seen on Plot.nnFitB.svg.
 The fit, the derivatives, and the anti-derivative
 lookes to be pretty accurate, whereas the double derivative
-seems to be around 0, but is osculating.
+seems to be around 0, but is oscillating.
 
 
 

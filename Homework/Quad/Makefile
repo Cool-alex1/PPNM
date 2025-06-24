@@ -3,7 +3,7 @@ LDLIBS += -lstdc++ -lm
 TIME = time --portability --append --output=$@ --format "$$n %e"
 
 
-all: Out.txt out.erf.txt out.erf.svg 
+all: Out.txt Plot.erf.svg
 
 Out.txt: main
 	./main > $@

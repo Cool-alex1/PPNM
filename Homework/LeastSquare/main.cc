@@ -53,5 +53,5 @@ int main() {
     for(int i = 0; i < (int)t.size() ; ++i) std::cout << t[i] << " " << y[i] << " " << dy[i] << "\n";
     
     
-    return 10;
+    return 0;
 }

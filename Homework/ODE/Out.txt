@@ -1,3 +1,10 @@
+Hereunder are the generated solutions for the six plots in order:
+ - plot.harm.svg (A)
+ - plot.diffharm.svg (A)
+ - plot.scipy1.svg (A)
+ - plot.PO1.svg (B)
+ - plot.PO2.svg (B)
+ - plot.PO3.svg (B)
 
 
 0, 1

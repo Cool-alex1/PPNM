@@ -185,7 +185,12 @@ int main(int argc, char** argv) {
         if(arg == "--opg" && i+1 < argc) opg = argv[i + 1];
         if(arg == "--Npow" && i+1 < argc) Npow = argv[i + 1];
     }
-    // std::cout << Npow << std::endl; 
+    if(opg == " "){
+        std::cout << "The tasks have here been split into the three out.txt filet:\n" <<
+        "  Out_A.txt - Containing tast A, using plain monte carlo on some examples\n" <<
+        "  Out_B.txt - Containing tast B, using quasi monte carlo on an example\n" <<
+        "  Out_C.txt - Containing tast C, comparing the usage plain monte carlo and stratified sampling on the 2d gaussian function\n" << std::endl;
+    }
 
     
 
@@ -314,6 +319,7 @@ int main(int argc, char** argv) {
             err = std::get<1>(res);
             q_ana = M_PI;
 
+            std::cout << "Using quasi-random sequences\n"; 
             std::cout << "Unit circle:\n"; 
             std::cout << "∫ unit circle = " << q << " +/- " << err << "\n"; 
             std::cout << "With " << N << " samples\n";
@@ -353,8 +359,9 @@ int main(int argc, char** argv) {
         err = std::get<1>(res);
         q_ana = M_PI;
     
-        std::cout << "Unit circle:\n"; 
-        std::cout << "∫ unit circle = " << q << " +/- " << err << "\n"; 
+        std::cout << "2d gauss with center (1, 0.5) and standard deviations (1, 0.5):\n"; 
+        std::cout << "Using plain MC:\n"; 
+        std::cout << "∫ 2d gauss = " << q << " +/- " << err << "\n"; 
         std::cout << "With " << N << " samples\n";
         std::cout << "Expected result = "<< q_ana << "\n";
         std::cout << "Actual err = "<< std::abs(q-q_ana) << "\n\n\n";
@@ -369,8 +376,8 @@ int main(int argc, char** argv) {
         err = std::get<1>(res);
         q_ana = M_PI;
     
-        std::cout << "Unit circle:\n"; 
-        std::cout << "∫ unit circle = " << q << " +/- " << err << "\n"; 
+        std::cout << "Using Stratified sampling:\n"; 
+        std::cout << "∫ 2d gauss = " << q << " +/- " << err << "\n"; 
         std::cout << "With " << N << " samples\n";
         std::cout << "Expected result = "<< q_ana << "\n";
         std::cout << "Actual err = "<< std::abs(q-q_ana) << "\n\n\n";

@@ -4,118 +4,121 @@
 #include<random>
 #include<vector>
 #include<functional>
+#include<random>
 #include"matrix.h"
 
 
-double make_R(matrix H, vector v){
-    matrix vm = toMatrix(v);                //To make sure v can be a vector in main
-    return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
-                                            //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
-}
+
+// g = [-3.2747, 2.55912, 0.715579]
+// dv = [-1.72114, 1.19577, 0.273999]
+
+
+// g = [0.304975, 0.660621, -0.965066]
+// dv = [0.718669, 2.80619, 1.38986]
+
+
+// g = [0.349823, 0.463546, -1.11634]
+// dv = [0.662185, 2.6954, 1.26541]
+
 
 
 vector gradient(const std::function<double(vector)>& f, vector v, matrix H, double R){
     matrix vm = toMatrix(v).T();
-    return 2 * toVector(H*vm - R*vm) / (v*v);
+    return 2 * toVector((H*vm - R*vm)) / (v*v);
+    // return 2 * toVector((H - R)*vm) / (v*v);
 }
+double findMin(const std::function<double(vector)>& f, double a0, double aStep, vector v, vector Δv){
+    double f1;
+    double f2;
+    double α = a0;
+    bool turn = true;
+    while (std::abs(α-a0) < 1){  //Stop if α is to far from a0
+        if(turn) f1 = f(v-α*Δv);
+        f2 = f(v-(α+aStep)*Δv);
+        // f1 = f(α);
+        // f2 = f(α+aStep);
+        
+        if (std::abs(f1 - f2) < 1e-20) break; //If change is to small a good α has been found
 
-
-
-// std::function<double(vector, vector)> R_α = [=](vector v, vector Δv){
-//     matrix vm = toMatrix(v).T();
-//     matrix Δvm = toMatrix(Δv).T();
-//     std::function<double(double)> f_α = [=](double α){
-//         return (vm.T()*H*vm - 2*α*Δvm.T()*H*Δvm)(0,0) / (v*v + α*α*Δv*Δv);
-//     };
-//     return f_α;
-// };
+        if((f2 - f1) > 0){   //If the gradient between f(α) and the next value ever becomes positive (uphill)
+            α += aStep*0.8;
+            aStep /= -2;     //Turn around and take smaller steps
+            turn = true;
+        } else {
+            turn = false;
+            f1 = f2;
+            α += aStep;
+        }
+    }
+    return α;
+}
 
 vector newton(const std::function<double(vector)>& f, vector v, matrix H, double acc){
     int n = 0;
+    double a=0.5;
     double R_val = f(v);
     matrix vm = toMatrix(v).T();
     vector Δv;
     matrix Δvm;
     v /= v.norm();
 
-
-//     R = 6.30283
-//     v = [0.778518, 0.627622]
-
-
-//     R = 6.30506
-//     v = [0.777993, 0.628274]
-    
-    while (n<30) {
-        std::cout << "R = " << R_val << std::endl;
-        // H.print("H = ");
-
+    while (1) {
+    // while (1) {
+        
         /*  Gradient check  */
         // If the gradient for R(v)|_H is small enough then
         // v cannot be improved significantly
         vector g = gradient(f, v, H, R_val);
-        // g.print("g = ");
         if (g.norm() < acc) break;
-        
-        
         
         
         /*  Finding the best α  */
         vm = toMatrix(v).T();
-        Δv = toVector((H - R_val) * vm);
-        // Δv /= Δv.norm();
-        // v.print("v = ");
-        // Δv.print("dv = ");
+        Δv = toVector((H* vm - R_val* vm));
         Δvm = toMatrix(Δv).T();
-    
-        std::function<double(double)> f_α = [&](double α){
-            return (vm.T()*H*vm - 2*α*Δvm.T()*H*vm + α*α*Δvm.T()*H*Δvm)(0,0) / (v*v + α*α*Δv*Δv);
-        };
-
+        
+        
         //My own local minimum finder:
-        double a = 0.0;    //Startguess for α
-        double da = +0.1;   //Steplength for α
-        double fα_val;
-        double fα_val2;
-        while (1){
-            // fα_val = f_α(a);
-            // fα_val2 = f_α(a + da);
-            fα_val = f_α(a);
-            fα_val2 = f_α(a + da);
+        // std::function<double(double)> f_α = [=](double α){
+        //     // return ((vm-α*Δvm).T() * H * (vm-α*Δvm))(0,0) / ((vm-α*Δvm).T()*(vm-α*Δvm))(0,0);
+        //     return (vm.T()*H*vm - 2*α*Δvm.T()*H*vm + α*α*Δvm.T()*H*Δvm)(0,0) / (vm.T()*vm - 2*α*Δvm.T()*vm + α*α*Δvm.T()*Δvm)(0,0);
+        // };
 
+        a = 0.5;    //Startguess for α
+        double a1 = findMin(f, -a, 0.05, v, Δv);
+        double a2 = findMin(f, a, -0.05, v, Δv);
+        
+        if(f(v-a1*Δv) > f(v-a2*Δv)){a = a2;} 
+        else {a = a1;}
 
-            if (std::abs(fα_val - fα_val2) < 1e-8) break; //If change is to small a good α has been found
-
-            if((fα_val2 - fα_val) > 0){   //If the gradient between f(α) and the next value ever becomes positive (uphill)
-                da /= -2;                 //Turn around and take smaller steps
-            }
-            a += da;
-        }
-        std::cout << "α = " << a << std::endl;
-        if(n==29){
-            std::cout << "\n" << std::endl;
-            
-            for(double i=-200.0; i<200; i++){
-                std::cout << i/100 << " " << f_α(i/100) << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
-            }
-            std::cout << "\n" << std::endl;
-        }
-        // (a*Δv).print("adv = ");
-        // std::cout << "\n" << std::endl;
-
+        // if(n==29){
+        //     std::cout << "\n" << std::endl;
+        //     for(double i=-200.0; i<200; i++){
+        //             std::cout << i/100 << " " << f_α(i/100) << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
+        //             // std::cout << i/100 << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
+        //     }
+        //     std::cout << "\n" << std::endl;
+        // }
+        
+        
         //Update v
-        R_val = f(v-a*Δv);
         v -= a*Δv;
         // v /= v.norm();
         R_val = f(v);
-        // v.print("v = ");
         n += 1;
-    }
-    // v /= v.norm();
+        // std::cout << "g.norm = " << g.norm() << std::endl;
+        // std::cout << "α = " << a << std::endl;
+        // v.print("v = ");
+        // std::cout << "R = " << R_val << std::endl;
+        // g.print("g = ");
+        // Δv.print("dv = ");
+        // std::cout << "\n" << std::endl;
+    } 
+
+                    
+    std::cout << "n = " << n << std::endl;
     return v;
 }
-
-
 
 
 
@@ -129,48 +132,51 @@ int main(int argc, char** argv) {
     }
     
     // matrix H = matrix(2, 2)+1;
-    matrix H({{2, 5},
-              {5, 3}});
-    // matrix H({{1, 2},
+    // matrix H({{2, 2, 4},
+    //           {2, 2, 5},
+    //           {4, 5, 4}});
+    // matrix H({{2, 2},
     //           {2, 3}});
+    std::default_random_engine re(0);
+    std::uniform_real_distribution<double> unif(-1,1);
+
+    int N = 100;
+    matrix H(N, N);
+    for(int i=0; i<N; i++){
+        H(i,i) = unif(re)*2;  //Diagonal
+        for(int j=i+1; j<N; j++){
+            H(i,j) = unif(re)*2;  //Horisontal
+            H(j,i) = H(i,j);  //Down
+        }
+    }
     // H.print("H = ");
     // std::cout << "\n" << std::endl;
     
-    // vector col = toVector(H.getCol(1))+3;
-    vector col = vector({1, 1});
-    // col.print("c = ");
+    vector v = vector(N)+1;
+    // vector v = vector({1, 1, 1});
     
     std::function<double(vector)> R = [=](vector v){
-        matrix vm = toMatrix(v);                //To make sure v can be a vector in main
-        return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
-    };                                          //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
-    
-    // col.print("v_col = ");
-    vector n = newton(R, col, H, 1e-5);
-    // double R_val = R(col);
-    // std::cout << R_val << "\n" << std::endl;
-    // std::cout << R(n) << "\n" << std::endl;
-    // n.print("v_opt1 = ");
-    // double R_opt1 = R(n);
-    // n /= n.norm();
-    // n.print("v_opt2 = ");
-    // double R_opt2 = R(n);
-    // std::cout << R_opt1 << std::endl;
-    // std::cout << R_opt2 << std::endl;
-    
-    
-    // (H/R(n) * toMatrix(n).T()).print("v? = ");
-    // (H/6.30283 * toMatrix(vector({0.778518, 0.627622})).T()).print("v? = ");
-    // (toVector(H * toMatrix(vector({0.777993, 0.628274})).T())/6.30506).print("v? = ");
+            matrix vm = toMatrix(v);                //To make sure v can be a vector in main
+            return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
+        };                                          //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
+        
+    vector n = newton(R, v, H, 1e-5);
+    n.print("eigenvector = v_e = ");
+    std::cout << "λ_min = " << R(n) << std::endl;
+    std::cout << "Difference between (Hv_e) and Rv_e:" << std::endl;
+    (toVector((H/R(n) * toMatrix(n).T())) - n).print("");
+        
+        
+        
+        
 
-
-//     R = 6.30506
-//     v = [0.777993, 0.628274]
-
+    /* Hydrogen */ 
+    // double rmax = 8,
+    // dr = 1.0/8;
     
     // int N = (int)(rmax/dr)-1;
     // std::vector<double> r(N);
-    // for(int i=0;i<N;i++) r[i]=dr*(i+1);
+    // for(int i=0; i<N; i++) r[i]=dr*(i+1);
     
     // matrix H(N, N);
     // for(int i=0; i<N-1; i++){
@@ -180,21 +186,65 @@ int main(int argc, char** argv) {
     // }
     // H(N-1, N-1) = -2*(-0.5/dr/dr);
     // for(int i=0; i<N; i++) H(i,i) += -1/r[i];
-
-    // EigenD EH(H);
-    // EH.cyclic();
-
-    // std::cout << rmax << "," << dr << "," << EH.D(0,0) << std::endl;
-
-    // if(wf > 0) {
-    //     std::cout << "\n\n";
-    //     for(int k = 0; k < wf; k++) {
-    //         matrix eVec = EH.V.getCol(k)/std::sqrt(dr);
-    //         for(int i = 0; i < N; ++i) {
-    //             std::cout << r[i] << "," << eVec(i,0) << "\n";
-    //         }
-    //         std::cout << "\n\n";
-    //     }
+    
+    // std::function<double(vector)> R = [=](vector v){
+    //     matrix vm = toMatrix(v);                //To make sure v can be a vector in main
+    //     return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
+    // };                                          //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
+    
+    // vector v = vector(N)+1;
+    // // v[0] = 1;
+    // vector n = newton(R, v, H, 1e-5);
+    
+    
+    // n.print("n = ");
+    // std::cout << "λ_min = " << R(n) << "\n\n" << std::endl;
+    // for(int i=0; i<N; i++){
+    //     std::cout << r[i] << " " << n[i] << std::endl;
     // }
+
     return 0;
 }
+
+
+
+
+
+
+// To plot α:
+// if(n==0){
+//     std::cout << "\n" << std::endl;
+
+//     for(double i=-200.0; i<200; i++){
+    //         std::cout << i/100 << " " << f_α(i/100) << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
+    //         // std::cout << i/100 << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
+//     }
+//     std::cout << "\n" << std::endl;
+// }
+
+
+
+
+// std::function<double(double)> f_α = [=](double α){
+//     return ((vm-α*Δvm).T() * H * (vm-α*Δvm))(0,0) / ((vm-α*Δvm).T()*(vm-α*Δvm))(0,0);
+//     // return (vm.T()*H*vm - 2*α*Δvm.T()*H*vm - α*Δvm.T()*H*vm + α*α*Δvm.T()*H*Δvm)(0,0) / (vm.T()*vm - 2*α*Δvm.T()*vm + α*α*Δvm.T()*Δvm)(0,0);
+// };
+
+// double make_R(matrix H, vector v){
+//     matrix vm = toMatrix(v);                //To make sure v can be a vector in main
+//     return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
+//                                             //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
+// }
+
+
+
+
+
+// std::function<double(vector, vector)> R_α = [=](vector v, vector Δv){
+    //     matrix vm = toMatrix(v).T();
+    //     matrix Δvm = toMatrix(Δv).T();
+    //     std::function<double(double)> f_α = [=](double α){
+//         return (vm.T()*H*vm - 2*α*Δvm.T()*H*Δvm)(0,0) / (v*v + α*α*Δv*Δv);
+//     };
+//     return f_α;
+// };

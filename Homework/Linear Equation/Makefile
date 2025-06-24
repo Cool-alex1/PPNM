@@ -18,7 +18,7 @@ TIME = time --portability --append --output=$@ --format "$$n %e"
 # LDLIBS = -lstdc++
 
 
-all: Out.txt out.times.txt plot.times.svg 
+all: Out.txt out.times.txt plot.times.svg matrixTest
 
 
 Out.txt: main
@@ -32,6 +32,9 @@ matrixTest.o matrix.o QR.o main.o facTimer.o: matrix.h QR.h
 
 
 facTimer : facTimer.o matrix.o QR.o
+	$(CXX) $(CXXFLAGS) $(LDLIBS) -o $@ $^
+
+matrixTest : matrixTest.o matrix.o QR.o
 	$(CXX) $(CXXFLAGS) $(LDLIBS) -o $@ $^
 
 
@@ -78,4 +81,4 @@ out.times.txt: facTimer
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut* *.o *.svg *.log main
+	$(RM) [Oo]ut* *.o *.svg *.log main facTimer matrixTest

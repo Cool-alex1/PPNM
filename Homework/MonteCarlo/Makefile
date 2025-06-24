@@ -45,6 +45,7 @@ plot.cirErr.svg : out.UnitCir.txt Makefile
 		  set key left; \
 		  set xlabel "N"; \
 		  set ylabel "err"; \
+		  set title "Error dependency of counts number (N) on a unit circle with plain MC"; \
 		  set logscale x 2; \
 		  f(x) = a/sqrt(x) ; \
 		  a = 0.02; \
@@ -60,6 +61,7 @@ plot.cirErrB.svg : out.UnitCirB.txt Makefile
 		  set key left; \
 		  set xlabel "N"; \
 		  set ylabel "err"; \
+		  set title "Error dependency of counts number (N) on a unit circle with MC using quasi-random sequences"; \
 		  set logscale x 2; \
 		  f(x) = a/sqrt(x) ; \
 		  a = 0.02; \

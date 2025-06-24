@@ -44,7 +44,8 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral1);
     err = std::get<1>(integral1);
     eval = std::get<2>(integral1);
-    std::cout << I << " +- " << err << "   eval: " << eval << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << std::endl;
     std::cout << "Expected: " << "1/2" << std::endl;
     
     std::cout << "\nf(x) = √​​x" << std::endl;
@@ -53,7 +54,8 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral2);
     err = std::get<1>(integral2);
     eval = std::get<2>(integral2);
-    std::cout << I << " +- " << err << "   eval: " << eval << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << std::endl;
     std::cout << "Expected: " << "2/3" << std::endl;
     
     std::cout << "\nf(x) = 1/√​​x" << std::endl;
@@ -62,7 +64,8 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral3);
     err = std::get<1>(integral3);
     eval = std::get<2>(integral3);
-    std::cout << I << " +- " << err << "   eval: " << eval << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << std::endl;
     std::cout << "Expected: " << "2" << std::endl;
     
     std::cout << "\nf(x) = √(1-x^2)" << std::endl;
@@ -71,7 +74,8 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral4);
     err = std::get<1>(integral4);
     eval = std::get<2>(integral4);
-    std::cout << I << " +- " << err << "   eval: " << eval << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << std::endl;
     std::cout << "Expected: " << "π/4 = 0,785398" << std::endl;
     
     std::cout << "\nf(x) = ln(x)/√x" << std::endl;
@@ -80,14 +84,16 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral5);
     err = std::get<1>(integral5);
     eval = std::get<2>(integral5);
-    std::cout << I << " +- " << err << "   eval: " << eval << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << std::endl;
     std::cout << "Expected: " << "-4" << std::endl;
     
     
     
     std::cout << "\n\nError function:" << std::endl;
+    std::cout << "Value of the errorfunction at x=1" << std::endl;
     double integral = erf(1);
-    std::cout << integral << std::endl;
+    std::cout << "res = " << integral << std::endl;
     
     
     
@@ -99,7 +105,8 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral6);
     err = std::get<1>(integral6);
     eval = std::get<2>(integral6);
-    std::cout << I << " +- " << err << "   eval: " << eval << " (Scipy: 231)" << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << " (Scipy: 231)" << std::endl;
     std::cout << "Expected: " << "2" << std::endl;
     
     std::cout << "\nf(x) = ln(x)/√x" << std::endl;
@@ -108,7 +115,8 @@ int main(int argc, char** argv) {
     I = std::get<0>(integral7);
     err = std::get<1>(integral7);
     eval = std::get<2>(integral7);
-    std::cout << I << " +- " << err << "   eval: " << eval << " (Scipy: 315)" <<std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << " (Scipy: 315)" <<std::endl;
     std::cout << "Expected: " << "-4" << std::endl;
     
     
@@ -122,7 +130,8 @@ int main(int argc, char** argv) {
     err = std::get<1>(integral8);
     eval = std::get<2>(integral8);
     Iana = 0.5;
-    std::cout << I << " +- " << err << "   eval: " << eval << " (Scipy: 15)"  << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << " (Scipy: 15)"  << std::endl;
     std::cout << "Expected: " << "1/2" << std::endl;
     std::cout << "err estimate and actual err: " << err << " ~ " << std::abs(I - Iana) << std::endl;
     
@@ -134,10 +143,11 @@ int main(int argc, char** argv) {
     err = std::get<1>(integral9);
     eval = std::get<2>(integral9);
     Iana = 1;
-    std::cout << I << " +- " << err << "   eval: " << eval << " (Scipy: 150)"  << std::endl;
+    std::cout << "Integral from " << a << " to " << b << ":" << std::endl;
+    std::cout << "res = " << I << " +- " << err << "   eval: " << eval << " (Scipy: 150)"  << std::endl;
     std::cout << "Expected: " << 1 << std::endl;
     std::cout << "err estimate and actual err: " << err << " ~ " << std::abs(I - Iana) << std::endl;
-
     
-    return 10;
+    
+    return 0;
 }

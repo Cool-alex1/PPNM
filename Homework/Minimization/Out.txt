@@ -1,3 +1,5 @@
+Accuracy for all = 1e-5
+
 A) and C)
 Rosenbrock function:
 min = [0.999988, 0.999975]
@@ -7,10 +9,19 @@ With central diff: From (0, 0) to min in 13 steps
 
 
 Himmelblau's function:
-min = [3, 2]
-Expected min (3, 2)
-With forward diff: From (2, 4) to min in 6 steps
-With central diff: From (2, 4) to min in 6 steps
+Expected min: [3, 2]
+Expected min: [-2.80512, 3.13131]
+Expected min: [3.58443, -1.84813]
+Expected min: [-3.77931, -3.28319]
+With forward diff: From (4, 4) to (3, 2) in 6 steps
+With forward diff: From (-4, 4) to (-2.80512, 3.13131) in 5 steps
+With forward diff: From (4, -4) to (3.58443, -1.84813) in 6 steps
+With forward diff: From (-4, -4) to (-3.77931, -3.28319) in 4 steps
+With central diff: From (4, 4) to (3, 2) in 6 steps
+With central diff: From (-4, 4) to (-2.80512, 3.13131) in 5 steps
+With central diff: From (4, -4) to (3.58443, -1.84813) in 6 steps
+With central diff: From (-4, -4) to (-3.77931, -3.28319) in 4 steps
+
 
 
 Beale function:

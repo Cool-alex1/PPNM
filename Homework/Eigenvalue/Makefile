@@ -107,5 +107,5 @@ plot.speed.svg : out.speed.txt Makefile
 
 .PHONEY:clean #Er her i tilfælde af at vi har en fil der hedder clean
 clean:
-	$(RM) [Oo]ut* *.o *.svg *.log main
+	$(RM) [Oo]ut* *.o *.svg *.log main ham speedTest eigenValTest
 
