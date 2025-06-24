@@ -1,8 +1,0 @@
-Using quasi-random sequences
-Unit circle:
-∫ unit circle = 3.14116 +/- 4e-05
-With 100000 samples
-Expected result = 3.14159
-Actual err = 0.000432654
-
-

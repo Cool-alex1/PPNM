@@ -1,5 +1,0 @@
-The tasks have here been split into the three out.txt filet:
-  Out_A.txt - Containing tast A, using plain monte carlo on some examples
-  Out_B.txt - Containing tast B, using quasi monte carlo on an example
-  Out_C.txt - Containing tast C, comparing the usage plain monte carlo and stratified sampling on the 2d gaussian function
-
