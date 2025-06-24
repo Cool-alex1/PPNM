@@ -1,0 +1,21 @@
+Optimal parameters (a, lambda):
+par = [4.95866]
+      [0.170624]
+cov = [0.0012533, 0.000197055]
+      [0.000197055, 5.12172e-05]
+parameter errors: 0.0354019, 0.00715662
+
+ThX has measured half life : 4.06242 ± 0.170394 days
+224Ra has half life : 3.6319 days
+The experimental data is 2.52664 standard deviations from the modern value
+
+
+1 117 6
+2 100 5
+3 88 4
+4 72 4
+6 53 4
+9 29.5 3
+10 25.2 3
+13 15.2 2
+15 11.1 2

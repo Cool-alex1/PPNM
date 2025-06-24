@@ -1,0 +1,47 @@
+A)
+f(x)=x*6-2:
+Start: [5]
+Expected root: [0.333333]
+res = [0.333333]
+
+
+f(x)=x-1 (2D):
+Start: [0.5, 0.5]
+Expected root: [1, 1]
+res = [1, 1]
+
+
+f(x) = x^2 + y^2:
+Start: [1, 1]
+Expected min: [0, 0]
+res = [0.000488281, 0.000488281]
+
+
+Rosenbrock function:
+Start: [2.5, 2.5]
+Expected min: [1, 1]
+res = [1, 1.00001]
+
+
+Himmelblau's function:
+Start: [4, 4] and [-4, 4] and [4, -4] and [-4, -4]
+Expected min: [3, 2]
+Expected min: [-2.80512, 3.13131]
+Expected min: [3.58443, -1.84813]
+Expected min: [-3.77931, -3.28329]
+res1 = [3, 2]
+res2 = [-2.80512, 3.13131]
+res3 = [3.58443, -1.84813]
+res4 = [-3.77931, -3.28319]
+
+
+
+B)
+Schroedinger equation:
+Using
+r_min = 0.1
+r_max = 8
+Using acc = 0.001
+eps = 0.001
+
+Optimal energy: -0.501827
