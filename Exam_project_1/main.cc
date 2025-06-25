@@ -10,13 +10,7 @@
 
 
 
-// std::function<double(vector)> R = [&](vector v){
-//     matrix vm = toMatrix(v);                //To make sure v can be a vector in main
-//     return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
-// };                                          //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
-       
-
-
+// Output for Out.txt
 void mode1(){
     std::cout << "--------------------- Project 1 ---------------------\n" 
               << "Eigenvalues with Rayleigh quotient and locally optimized gradient descent\n"
@@ -173,6 +167,7 @@ void mode1(){
 
 
 
+// Output for Out.data.txt
 void plot(){
     vector v0, res;
     matrix H;
@@ -226,6 +221,9 @@ void plot(){
     }
 }
 
+
+
+// Output for Out.speed.txt
 void speed(int N){
     vector v0, res;
     matrix H;
@@ -276,50 +274,3 @@ int main(int argc, char** argv) {
     }
     return 0;
 }
-
-// To plot α:
-// if(n==0){
-//     std::cout << "\n" << std::endl;
-
-//     for(double i=-200.0; i<200; i++){
-    //         std::cout << i/100 << " " << f_α(i/100) << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
-    //         // std::cout << i/100 << " " << f(v-(i/100)*Δv) << " " << a << std::endl;
-//     }
-//     std::cout << "\n" << std::endl;
-// }
-
-
-
-
-// Δvm = toMatrix(Δv).T();
-// std::function<double(double)> f_α = [=](double α){
-//     return ((vm-α*Δvm).T() * H * (vm-α*Δvm))(0,0) / ((vm-α*Δvm).T()*(vm-α*Δvm))(0,0);
-//     // return (vm.T()*H*vm - 2*α*Δvm.T()*H*vm + α*α*Δvm.T()*H*Δvm)(0,0) / (vm.T()*vm - 2*α*Δvm.T()*vm + α*α*Δvm.T()*Δvm)(0,0);
-// };
-
-// double make_R(matrix H, vector v){
-//     matrix vm = toMatrix(v);                //To make sure v can be a vector in main
-//     return (vm * H * vm.T())(0,0) / (v*v);  //Since toMatrix([1,1]) --> [[1,1]], vm and vm.T are swapped
-//                                             //matrix * matrix --> matrix, therefore the only element must be exracted, hence "(0,0)"
-// }
-
-
-
-
-
-// std::function<double(vector, vector)> R_α = [=](vector v, vector Δv){
-    //     matrix vm = toMatrix(v).T();
-    //     matrix Δvm = toMatrix(Δv).T();
-    //     std::function<double(double)> f_α = [=](double α){
-//         return (vm.T()*H*vm - 2*α*Δvm.T()*H*Δvm)(0,0) / (v*v + α*α*Δv*Δv);
-//     };
-//     return f_α;
-// };
-
-
-
-
-
-
-
-
