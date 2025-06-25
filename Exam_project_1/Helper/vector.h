@@ -63,6 +63,7 @@ vector operator/(const vector&, double);
 vector compPro(const vector&, const vector&);
 vector proj(const vector&, const vector&);
 int len(const vector&);
+double sum(const vector&);
 // matrix toMatrix(const vector&, int axis=0);
 bool approx(const vector&, const vector&, double acc=1e-6,double eps=1e-6);
 #endif

@@ -1,5 +1,87 @@
-n = 520
-eigenvector = v_e = [-0.0146093, 0.0383197, -0.119788, 0.0533383, 0.0284656, -0.0724078, -0.00518656, -0.130491, -0.171405, 0.0996256, 0.0594366, 0.163948, -0.0525251, 0.0255697, -0.0415636, 0.190849, 0.0597289, 0.0595346, -0.0116169, 0.0452666, -0.162963, 0.0537302, -0.00988369, 0.10444, -0.121383, 0.0311458, 0.11196, 0.052052, -0.115127, 0.0458859, 0.181659, -0.176331, 0.0878655, 0.0346817, -0.0629082, 0.0932798, 0.182531, 0.0882596, -0.0711003, -0.116298, 0.00839027, 0.109221, -0.0981151, 0.213252, -0.132695, 0.152947, 0.0182101, 0.180777, -0.103525, -0.119189, -0.0301262, 0.0134805, 0.0515935, 0.0852751, -0.0196023, 0.134333, -0.0810295, 0.0348216, -0.0827142, -0.0936841, -0.138648, 0.0130195, 0.0738438, -0.0394766, 0.0543947, 0.098429, -0.102187, 0.0230487, -0.0517732, 0.0541158, -0.0215853, 0.215855, -0.136918, 0.133969, -0.0313255, -0.0330642, 0.0325751, -0.101159, 0.0850494, 0.0348431, -0.227017, -0.00816337, -0.106951, -0.107331, -0.00492198, -0.089959, 0.024233, -0.0891786, 0.00272278, 0.110077, 0.0511541, 0.00555987, 0.191136, -0.00714702, -0.113604, -0.20097, 0.0668275, -0.0120876, -0.154702, 0.0285672]
+--------------------- Project 1 ---------------------
+Eigenvalues with Rayleigh quotient and locally optimized gradient descent
+Link: http://212.27.24.106:8080/prog/projex/rayleigh-quotient.htm
+
+Ex.nr. 208105
+Date: 26/6 - 2025
+
+
+********** Important ***********
+The theory provided in this project has two mistakes.
+1)
+	Going from the gradient to Δv is says
+	2[Hv-Rv]/(v^Tv) ∝ (H-R)v. This is not true since
+	R is a single value and not a matrix. It should probably
+	say something like 2[Hv-Rv]/(v^Tv) ∝ (Hv-Rv):)
+
+2)
+	It says R(v-αΔv)=(v^THv-2αΔv^THv+α²Δv^THΔv)/(v^Tv+α²Δv^TΔv)
+	The denominator here is wrong, it is instead (v^Tv-2αΔv^Tv+α²Δv^TΔv)
+
+
+--------------- Output ---------------
+
+H = [1, 2]
+    [2, 1]
+Solved in 1 iteration(s)
+λ_min = -1   Expected: -1
+v_min = [0.707107, -0.707107]
+Difference between H*v_min and R*v_min:
+[-1.3487e-08, -1.3487e-08]
+
+
+H = [-2, 2, 1]
+    [2, 1, 2]
+    [1, 2, 6]
+Solved in 16 iteration(s)
+λ_min = -3   Expected: -3
+v_min = [0.894427, -0.447213, 4.64432e-09]
+Difference between H*v_min and R*v_min:
+[-4.25756e-07, -8.51514e-07, -4.38142e-07]
+
+
+On a 100x100 symmetric matrix:
+Solved in 517 iteration(s)
 λ_min = -21.7399
-Difference between (Hv_e) and Rv_e:
-[5.67069e-10, 2.81522e-08, -5.00128e-08, -2.93009e-08, 1.7477e-08, 3.2598e-08, -4.19076e-08, 9.26125e-09, -2.88184e-08, 1.50328e-08, -3.10705e-09, 2.50786e-08, 1.83831e-08, -1.03414e-08, -3.82181e-08, 1.51637e-08, 3.0382e-08, 2.77077e-08, 1.4531e-09, -2.95901e-08, -1.01013e-08, 1.10737e-08, -5.6588e-08, 7.8252e-09, -6.30965e-09, -2.28458e-08, -2.1369e-08, 1.91978e-08, 1.92172e-08, -4.01419e-09, -7.38889e-09, 3.82965e-09, 4.30748e-08, -2.18032e-08, -8.38255e-09, -9.61805e-09, 1.05878e-08, -1.94081e-08, -5.39887e-08, -2.65089e-09, -2.08338e-08, -9.48401e-09, 1.8275e-09, 3.50473e-09, -2.32056e-10, -1.74487e-09, 1.26735e-09, -1.81015e-08, 5.43203e-08, -2.0026e-08, 1.92928e-08, -2.08771e-08, -2.67285e-08, -1.85703e-08, -1.27147e-08, 1.14244e-09, 2.90126e-08, 5.89435e-11, -9.95404e-09, -1.27534e-08, -3.09479e-09, -7.80422e-09, -8.40356e-09, 2.96768e-08, 1.05452e-08, -1.38301e-08, -1.1474e-08, 2.81303e-08, 2.34614e-08, -2.47655e-08, 3.42549e-08, -2.24386e-08, 7.31844e-09, 2.16935e-08, -2.31413e-08, -2.17873e-08, -1.08816e-08, -1.56851e-08, 1.04853e-08, 1.38518e-08, 2.29695e-08, 3.02503e-09, 4.17e-08, -1.40155e-08, -4.38978e-08, 2.93639e-09, 6.66013e-09, 3.27168e-08, -7.4099e-09, 7.89046e-10, -7.35722e-09, -2.42636e-08, -6.39015e-09, 6.71588e-09, 1.81875e-08, -2.24488e-08, 3.96726e-08, -8.90356e-09, 6.26446e-09, -3.67699e-08]
+Norm of the difference between H*v_min and R*v_min: 2.26602e-07
+
+
+The speed at which this method successfully finds the lowest eigenvalue
+for a NxN matrix can be seen on 'Plot.speed.svg'. Since the calculation
+of R has a runtime of O(n^2) and the newton function has some scaling
+I plotted along with the data a a*x^3 polynomium, which seem to fit quite nicely.
+It seems that it is possible to get the lowest eigenvalue for a matrix 
+of size <200x<200 within a couple of secounds with this method. This result
+is however very dependent on how accurate you want the result and how good
+your chose of v0 is.
+
+
+--- Hydrogen atom ---
+r_max = 8
+r_min = 0.125
+Δr = 0.125
+Size(H) = (63, 63)
+
+Ground state:
+Solved in 2741 iteration(s)
+λ_min = -0.498036    Expected: 0.5
+Norm of the difference between H*v_min and R*v_min: 9.35945e-09
+
+
+Second smallest eigenvalue:
+Making v0 orthogonal to v_min
+v_min*v0 = 0
+
+Solved in 1473 iteration(s)
+λ_min2 = -0.0845345
+Norm of the difference between H*v_min2 and R*v_min2: 0.00586733
+
+
+In the plot 'Plot.hydrogen.svg' you can see the two wavefunctions (v_min and v_min2) found above.
+
+One must be carefull when calculating the secound smallest eigenvalue.
+Since v0 must be a combination of all the eigenvectors but v_min,
+the uncertainty when calculating v_min will not have an immediately impact
+on the calculations for λ_min2 but if a too high accuracy is required
+the result will look like in the plot 'Plot.R.svg', where the result almost
+converges but then falls down to λ_min.

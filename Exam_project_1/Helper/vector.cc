@@ -107,8 +107,8 @@ double vector::norm() const {
 	if(len == 1){return vec[0];} 
 	else {
 		double l = 0;
-		for (int i=0; i < len; i++){l += pow(vec[i],2);}
-        return sqrt(l);
+		for (int i=0; i < len; i++){l += std::pow(vec[i],2);}
+        return std::sqrt(l);
 	}
 }
 vector vector::diff() const {
@@ -121,6 +121,11 @@ vector proj(const vector& u, const vector& a){
 }
 int len(const vector& a){
     return a.len;
+}
+double sum(const vector& a){
+	double s=0;
+	for(int i = 0; i < a.len ; ++i) s += a[i];
+    return s;
 }
 
 
