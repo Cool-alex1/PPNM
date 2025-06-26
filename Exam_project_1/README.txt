@@ -21,4 +21,4 @@ The speed at which this method finds the smallest eigen-value have also been loo
 further explained in Out.txt and the resulting plot can be seen in Plots/Plot.speed.svg.
 
 
-I see this solution to the project as furrow as possible and therefore will be rated 10 on a scale of 1-10.
+I see this solution to the project as furrow as possible and therefore will be rated 10 on a scale of 1-10 by me.
